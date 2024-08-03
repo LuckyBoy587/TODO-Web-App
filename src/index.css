@@ -5,9 +5,84 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: hsl(0, 0%, 90%);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.todo-box {
+  width: 50%;
+  background-color: white;
+  margin: 10px 0;
+  padding: 10px;
+  box-shadow: 1px 1px 1px black;
+}
+
+.todo-input-box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  font-size: xx-large;
+}
+
+.todo-input-box h3 {
+  margin: 10px;
+}
+
+.todo-box h6 {
+  margin: 10px;
+}
+
+.todo-box input {
+  margin-bottom: 10px;
+  min-height: 50px;
+  font-size: large;
+  padding-left: 20px;
+}
+
+.add-button {
+  height: 50px;
+  font-size: 20px;
+  background-color: hsl(0, 0%, 10%);
+  color: white;
+}
+
+.add-button:hover {
+  background-color: hsl(0, 0%, 0%);
+  cursor: pointer;
+}
+
+.tab-options {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.tab-options p {
+  margin: 0;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.6s ease-in-out;
+}
+
+.selected-tab {
+  text-decoration: underline;
+  background-color: hsl(0, 0%, 90%);
+}
+
+.todo-viewer {
+  margin-top: 10px;
+  flex-grow: 1;
+  overflow-y: auto;
 }
