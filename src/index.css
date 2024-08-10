@@ -20,7 +20,7 @@ code {
 }
 
 .todo-box {
-  width: 50%;
+  width: 80%;
   min-width: fit-content;
   background-color: white;
   margin: 10px 0;
@@ -66,7 +66,7 @@ code {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  font-size: 0.5em;
+  font-size: 1rem;
   margin-top: 10px;
 }
 
@@ -78,7 +78,6 @@ code {
 }
 
 .selected-tab {
-  text-decoration: underline;
   background-color: hsl(0, 0%, 90%);
 }
 

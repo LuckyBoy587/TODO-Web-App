@@ -5,18 +5,18 @@ function TodoItem(props) {
     return (
         <div className="todo-container">
             <div className="name-box">
-                <div className="tick-box" onClick={() => props.onComplete(props.name)}>
+                <div className="tick-box" onClick={() => props.onComplete(props.id)}>
                     {props.isDone && <i className="fa-solid fa-check"></i>}
                 </div>
                 <span>{props.name}</span>
             </div>
 
             <div className="button-container">
-                <button className="edit-button button">
+                <button className="edit-button button" onClick={() => {}}>
                     <i className="fa-solid fa-wrench"></i>
                     <span>Edit</span>
                 </button>
-                <button onClick={() => props.onDelete(props.name)} className="delete-button button">
+                <button onClick={() => props.onDelete(props.id)} className="delete-button button">
                     <i className="fa-solid fa-trash"></i>
                     <span>Delete</span>
                 </button>
@@ -27,9 +27,11 @@ function TodoItem(props) {
 
 TodoItem.propTypes = {
     name: PropTypes.string,
+    id: PropTypes.number,
     isDone: PropTypes.bool,
     onDelete: PropTypes.func,
-    onComplete: PropTypes.func
+    onComplete: PropTypes.func,
+    onModify: PropTypes.func
 }
 
 export default TodoItem

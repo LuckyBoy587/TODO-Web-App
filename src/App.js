@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import './App.css';
 import TodoItem from './Components/TodoItem';
 
@@ -9,31 +9,45 @@ function App() {
         INCOMPLETE: "Incomplete"
     }
     const [currTab, setCurrTab] = useState(TABS.ALL)
-
     const [todoList, setTodoList] = useState([]);
+    const [todoID, setTodoID] = useState(0);
     const addTodo = (todoName) => {
         if (todoName.length > 0) {
-            setTodoList((prevTodoList) => [{name: todoName, isDone: false}, ...prevTodoList]);
+            const id = todoID;
+            setTodoList((prevTodoList) => [{ name: todoName, isDone: false, id: id }, ...prevTodoList]);
             setTodoName("")
+            setTodoID(todoID + 1)
         }
     };
-    const deleteTodo = (todoName) => {
+    const deleteTodo = (id) => {
         setTodoList((prevTodoList) => (
-            prevTodoList.filter((todoObj) => todoObj.name !== todoName)
+            prevTodoList.filter((todoObj) => todoObj.id !== id)
         ))
     };
-    const onTodoComplete = (todoName) => {
+    const onTodoComplete = (id) => {
         setTodoList((prevTodoList) => (
             prevTodoList.map((todoObj) => (
-                todoObj.name === todoName ? {...todoObj, isDone: !todoObj.isDone} : todoObj
+                todoObj.id === id ? { ...todoObj, isDone: !todoObj.isDone } : todoObj
             ))
         ))
     }
+    const modifyTodo = (id, newName) => {
+        setTodoList((prevTodoList) => (
+            prevTodoList.map((todoObj) => (
+                todoObj.id === id ? { ...todoObj, name: newName } : todoObj
+            ))
+        ))
+    };
 
     const [todoName, setTodoName] = useState("");
     const handleInputChange = (event) => {
         setTodoName(event.target.value)
     }
+
+    const createTodo = (todoObj, index) => (
+        <TodoItem key={index} id={todoObj.id} name={todoObj.name} isDone={todoObj.isDone}
+            onDelete={deleteTodo} onComplete={onTodoComplete} onModify={modifyTodo}/>
+    )
 
     return (
         <div className='todo-box'>
@@ -48,26 +62,17 @@ function App() {
                 <p className={currTab === TABS.ALL ? "selected-tab" : ""} onClick={() => setCurrTab(TABS.ALL)}>All
                     Tasks</p>
                 <p className={currTab === TABS.INCOMPLETE ? "selected-tab" : ""}
-                   onClick={() => setCurrTab(TABS.INCOMPLETE)}>Incomplete Tasks</p>
+                    onClick={() => setCurrTab(TABS.INCOMPLETE)}>Incomplete Tasks</p>
                 <p className={currTab === TABS.COMPLETE ? "selected-tab" : ""}
-                   onClick={() => setCurrTab(TABS.COMPLETE)}>Completed Tasks</p>
+                    onClick={() => setCurrTab(TABS.COMPLETE)}>Completed Tasks</p>
             </div>
 
             <div className='todo-viewer'>
-                {currTab === TABS.ALL && todoList.map((todo, index) => (
-                    <TodoItem key={index} name={todo.name} isDone={todo.isDone} onDelete={deleteTodo}
-                              onComplete={onTodoComplete}/>
-                ))}
+                {currTab === TABS.ALL && todoList.map((todo, index) => (createTodo(todo, index)))}
 
-                {currTab === TABS.COMPLETE && todoList.filter((todoObj) => (todoObj.isDone)).map((todo, index) => (
-                    <TodoItem key={index} name={todo.name} isDone={todo.isDone} onDelete={deleteTodo}
-                              onComplete={onTodoComplete}/>
-                ))}
+                {currTab === TABS.COMPLETE && todoList.filter((todoObj) => (todoObj.isDone)).map((todo, index) => (createTodo(todo, index)))}
 
-                {currTab === TABS.INCOMPLETE && todoList.filter((todoObj) => (!todoObj.isDone)).map((todo, index) => (
-                    <TodoItem key={index} name={todo.name} isDone={todo.isDone} onDelete={deleteTodo}
-                              onComplete={onTodoComplete}/>
-                ))}
+                {currTab === TABS.INCOMPLETE && todoList.filter((todoObj) => (!todoObj.isDone)).map((todo, index) => (createTodo(todo, index)))}
             </div>
         </div>
     )
