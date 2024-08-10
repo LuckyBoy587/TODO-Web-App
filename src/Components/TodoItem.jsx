@@ -1,9 +1,16 @@
 import PropTypes from "prop-types"
 import "./TodoItem.css"
+import { useState } from "react"
+import EditItem from "./EditItem";
 
 function TodoItem(props) {
+    const [editClicked, setEditClicked] = useState(false);
+    const handleCancelClick = () => {
+        setEditClicked(false)
+    }
+
     return (
-        <div className="todo-container">
+        <div style={editClicked ? {} : {}} className="todo-container">
             <div className="name-box">
                 <div className="tick-box" onClick={() => props.onComplete(props.id)}>
                     {props.isDone && <i className="fa-solid fa-check"></i>}
@@ -12,7 +19,7 @@ function TodoItem(props) {
             </div>
 
             <div className="button-container">
-                <button className="edit-button button" onClick={() => {}}>
+                <button className="edit-button button" onClick={() => setEditClicked(true)}>
                     <i className="fa-solid fa-wrench"></i>
                     <span>Edit</span>
                 </button>
@@ -21,6 +28,8 @@ function TodoItem(props) {
                     <span>Delete</span>
                 </button>
             </div>
+
+            {editClicked && <EditItem name={props.name} isDone={props.isDone} onCancel={handleCancelClick} />}
         </div>
     )
 }
