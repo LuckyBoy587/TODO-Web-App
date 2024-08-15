@@ -1,21 +1,31 @@
-import PropTypes from "prop-types"
 import "./TodoItem.css"
-import { useState } from "react"
+import {useState} from "react"
 import EditItem from "./EditItem";
 
-function TodoItem(props) {
+function TodoItem({todo, setTodoList}) {
     const [editClicked, setEditClicked] = useState(false);
+
     const handleCancelClick = () => {
         setEditClicked(false)
     }
 
+    const handleTickClick = () => {
+        setTodoList((prevState) => prevState.map((item) => (
+            item.id === todo.id ? {...item, isDone: !item.isDone} : item
+        )))
+    }
+
+    const handleDeleteClick = () => {
+        setTodoList((prevState) => prevState.filter((item) => item.id !== todo.id))
+    }
+
     return (
-        <div style={editClicked ? {} : {}} className="todo-container">
+        <div className="todo-container">
             <div className="name-box">
-                <div className="tick-box" onClick={() => props.onComplete(props.id)}>
-                    {props.isDone && <i className="fa-solid fa-check"></i>}
+                <div className="tick-box" onClick={handleTickClick}>
+                    {todo.isDone && <i className="fa-solid fa-check"></i>}
                 </div>
-                <span>{props.name}</span>
+                <span>{todo.name}</span>
             </div>
 
             <div className="button-container">
@@ -23,24 +33,15 @@ function TodoItem(props) {
                     <i className="fa-solid fa-wrench"></i>
                     <span>Edit</span>
                 </button>
-                <button onClick={() => props.onDelete(props.id)} className="delete-button button">
+                <button onClick={handleDeleteClick} className="delete-button button">
                     <i className="fa-solid fa-trash"></i>
                     <span>Delete</span>
                 </button>
             </div>
 
-            {editClicked && <EditItem name={props.name} isDone={props.isDone} onCancel={handleCancelClick} />}
+            {editClicked && <EditItem todo={todo} setTodoList={setTodoList} onCancel={handleCancelClick}/>}
         </div>
     )
-}
-
-TodoItem.propTypes = {
-    name: PropTypes.string,
-    id: PropTypes.number,
-    isDone: PropTypes.bool,
-    onDelete: PropTypes.func,
-    onComplete: PropTypes.func,
-    onModify: PropTypes.func
 }
 
 export default TodoItem
