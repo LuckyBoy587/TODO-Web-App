@@ -1,88 +1,362 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: hsl(0, 0%, 90%);
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-#root {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-}
-
+/* Overall app layout */
 .todo-box {
-  width: 80%;
-  min-width: fit-content;
-  background-color: white;
-  margin: 10px 0;
-  padding: 10px;
-  box-shadow: 1px 1px 1px black;
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  font-family: 'Poppins', sans-serif;
+  transition: box-shadow 0.3s ease;
 }
 
-.todo-input-box {
+.todo-box:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #5962e0;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+h6 {
+  font-size: 18px;
+  color: #777;
+  text-align: center;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+/* Todo input section */
+.todo-input-box {
   display: flex;
   flex-direction: column;
-  font-size: xx-large;
+  align-items: center;
+  background: linear-gradient(135deg, hsl(207, 89%, 86%), hsl(205, 87%, 94%));
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.todo-input-box h3 {
-  margin: 10px;
+.todo-input-box:hover {
+  background: linear-gradient(135deg, hsl(207, 79%, 86%), hsl(205, 77%, 94%));
+  box-shadow: 0 5px 10px rgb(0, 0, 0, 0.1);
 }
 
-.todo-box h6 {
-  margin: 10px;
+.todo-input {
+  width: 80%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #42a5f5;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
 }
 
-.todo-box input {
-  margin-bottom: 10px;
-  min-height: 50px;
-  font-size: large;
-  padding-left: 20px;
+.todo-input:focus {
+  border-color: #1e88e5;
+  outline: none;
 }
 
 .add-button {
-  height: 50px;
-  font-size: 20px;
-  background-color: hsl(0, 0%, 10%);
+  background: linear-gradient(135deg, #42a5f5, #478ed1);
   color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .add-button:hover {
-  background-color: hsl(0, 0%, 0%);
-  cursor: pointer;
+  background: linear-gradient(135deg, #478ed1, #42a5f5);
+  transform: scale(1.05)
 }
 
+/* Tab section */
 .tab-options {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  font-size: 1rem;
-  margin-top: 10px;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .tab-options p {
-  margin: 0;
-  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #007bff;
   cursor: pointer;
-  transition: background-color 0.6s ease-in-out;
+  padding: 12px 20px;
+  background: rgba(66, 165, 245, 0.1);
+  border-radius: 8px;
+  transition: color 0.3s ease;
+}
+
+.tab-options p:hover {
+  color: #0056b3;
+  background: hsla(207, 90%, 61%, 0.2);
 }
 
 .selected-tab {
-  background-color: hsl(0, 0%, 90%);
+  border: 2px dashed;
+  border-color: #007bff;
+  color: #0056b3;
+  background: hsla(207, 80%, 61%, 0.2);
 }
 
+/* Todo viewer section */
 .todo-viewer {
-  margin-top: 10px;
-  flex-grow: 1;
-  overflow-y: auto;
+  margin-top: 30px;
+}
+
+ol {
+  padding-left: 20px;
+}
+
+/* List item styles */
+li {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+
+/* Todo container styling */
+.todo-container {
+  background: linear-gradient(135deg, #f0f4f8, #ffffff);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease-in-out, background 0.3s ease;
+}
+
+.todo-container:hover {
+  background: linear-gradient(135deg, #e3efff, #ffffff);
+  transform: scale(1.05);
+}
+
+.name-box {
+  display: flex;
+  align-items: center;
+}
+
+.completed-text {
+  text-decoration: line-through;
+}
+
+.tick-box {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.tick-box:hover {
+  border-color: #26c6da;
+  background-color: #e0f7fa;
+}
+
+.tick-box i {
+  color: #26a69a;
+  font-size: 18px;
+}
+
+.name-box span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.3s ease;
+  text-transform: capitalize;
+}
+
+/* Button container */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Button styling with vibrant gradients and effects */
+.list-button {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #42a5f5, #478ed1);
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.list-button i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.list-button:hover {
+  background: linear-gradient(135deg, #478ed1, #42a5f5);
+}
+
+.edit-button {
+  background: linear-gradient(135deg, #ffca28, #ffb300);
+}
+
+.edit-button:hover {
+  background: linear-gradient(135deg, #ffb300, #ffca28);
+}
+
+.delete-button {
+  background: linear-gradient(135deg, #e57373, #ef5350);
+}
+
+.delete-button:hover {
+  background: linear-gradient(135deg, #ef5350, #e57373);
+}
+
+
+/* Edit container with a vibrant, colorful design */
+.edit-container {
+  background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 25px;
+  max-width: 420px;
+  margin: 30px auto;
+  font-family: 'Arial', sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.edit-container:hover {
+  transform: scale(1.05);
+}
+
+/* Field styles with more dynamic colors */
+.name-field, .status-field {
+  margin-bottom: 25px;
+}
+
+.name-field label, .status-field label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Input with soft color changes and a larger size */
+input.new {
+  width: calc(100% - 20px);
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #80deea;
+  font-size: 16px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+input.new:focus {
+  border-color: #26c6da;
+  background-color: #e0f7fa;
+}
+
+/* Status field with dynamic interaction */
+.status-field .name-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.tick-box {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ff8a80;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 12px;
+  background-color: #ffebee;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.tick-box:hover {
+  border-color: #ff5252;
+  background-color: #ffebee;
+}
+
+.tick-box i {
+  color: #ff5252;
+  font-size: 16px;
+}
+
+/* Buttons with vibrant gradients and hover effects */
+.edit-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.button {
+  background: linear-gradient(135deg, #42a5f5, #478ed1);
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.button i {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #478ed1, #42a5f5);
+  transform: translateY(-2px);
+}
+
+.button-container .button:nth-child(2) {
+  background: linear-gradient(135deg, #ef5350, #e57373);
+}
+
+.button-container .button:nth-child(2):hover {
+  background: linear-gradient(135deg, #e57373, #ef5350);
+}
+
+.no-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: hsl(211, 76%, 48%);
+  border: 2px dashed;
+  border-radius: 50px;
+}
+
+.no-task p {
+  font-size: 20px;
+  font-weight: 1000;
+  margin-left: 10px;
 }
